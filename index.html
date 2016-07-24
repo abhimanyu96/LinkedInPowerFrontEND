@@ -41,8 +41,8 @@
               </nav>
             </div>
           </div>
-
-          <div class="inner cover">
+          <div class="row">
+          <div class="inner cover col-md-6">
             <h1 class="cover-heading">Heading</h1>
             <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
             <p class="lead">
@@ -50,8 +50,9 @@
             </p>
 
           </div>
-          <div id="loginModal" class="show" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="loginController as loginCtrl">
+          <div id="loginModal" class="show col-md-6" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="loginController as loginCtrl">
   <div class="modal-dialog">
+  
   <div class="modal-content">
       <div class="modal-header">
           <h1 class="text-center" style="color:black">Login</h1>
@@ -69,13 +70,13 @@
             </div>
           </form>
       </div>
-      <div class="" style="color:red">
-      {{loginCtrl.status}}
-      </div>  
-      
+       <div class="modal-footer">
+       {{loginCtrl.status}}
+      </div>
       </div>
   </div>
   </div>
+    </div>
 </div>
           <div class="mastfoot">
             <div class="inner">
