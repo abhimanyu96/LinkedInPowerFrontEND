@@ -1,22 +1,27 @@
 (function(){
 
-var app=angular.module('login', []);
-app.controller('loginController',['$http', function($http){
-	this.status='';
-	this.data={};
-	var s=this;
-	this.token='';;
-	this.login=function()
-	{
-		$http.post('http://localhost:8080', s.data )
-		.then(function successCallback(response){
-			console.log('sjdnsjd');
-			s.status=response.statusText;
-			s.token=response.data.token;
-			}
-			,function errorCallback(response){
-				console.log('jndjnsd' + response);
-			 s.status='Invalid Username or Password';});
-	};
+var app=angular.module('bigmod', ['login','ngRoute','ngCookies']);
+app.config(['$routeProvider',function($routeProvider) {
+	$routeProvider.when('/login',{
+		templateUrl:'templates/login.html'
+	})
+	.when('/',{
+		templateUrl:'templates/dash.html'
+	}).otherwise({ redirectTo:'/login'});
 }]);
+app.run(['$rootScope', '$location', '$cookieStore', '$http',
+    function ($rootScope, $location, $cookieStore, $http) {
+        // keep user logged in after page refresh
+        $rootScope.globals = $cookieStore.get('globals') || {};
+        if ($rootScope.globals.currentUser) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        }
+ 
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in
+            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+                $location.path('/login');
+            }
+        });
+    }]);
 })();
