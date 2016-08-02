@@ -1,6 +1,6 @@
 (function(){
 
-var app=angular.module('bigmod', ['login','ngRoute','ngCookies']);
+var app=angular.module('bigmod', ['Authentication','ngRoute','ngCookies']);
 app.config(['$routeProvider',function($routeProvider) {
 	$routeProvider.when('/login',{
 		templateUrl:'templates/login.html'
@@ -14,7 +14,7 @@ app.run(['$rootScope', '$location', '$cookieStore', '$http',
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+           // $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
  
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

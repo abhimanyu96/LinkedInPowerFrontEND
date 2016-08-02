@@ -1,7 +1,8 @@
-(function(){
-
-var app=angular.module('Authentication', ['ngRoute']);
-app.controller('LoginController',
+'use strict';
+ 
+angular.module('Authentication')
+ 
+.controller('LoginController',
     ['$scope', '$rootScope', '$location', 'AuthenticationService',
     function ($scope, $rootScope, $location, AuthenticationService) {
         // reset login status
@@ -9,17 +10,14 @@ app.controller('LoginController',
  
         $scope.login = function () {
             $scope.dataLoading = true;
-            AuthenticationService.Login($scope.username, $scope.password, function(flag) {
-                if(flag==1) {
+            AuthenticationService.Login($scope.username, $scope.password, function(response) {
+                if(response.success) {
                     AuthenticationService.SetCredentials($scope.username, $scope.password);
-                    console.log('ss');
                     $location.path('/');
                 } else {
-                    $scope.error = 'Invalid username or password';
-                    console.log('ee');
-                   
+                    $scope.error = response.message;
+                    $scope.dataLoading = false;
                 }
             });
         };
     }]);
-})();

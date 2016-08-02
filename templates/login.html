@@ -25,7 +25,7 @@
             </p>
 
           </div>
-          <div id="loginModal" class="show col-md-7" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="loginController as loginCtrl">
+          <div id="loginModal" class="show col-md-7" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="LoginController as loginCtrl">
   <div class="modal-dialog">
   
   <div class="modal-content">
@@ -33,12 +33,12 @@
           <h1 class="text-center" style="color:black">Login</h1>
       </div>
       <div class="modal-body">
-          <form class="form col-md-12 center-block" ng-submit="loginCtrl.login()">
+          <form class="form col-md-12 center-block" ng-submit="login()">
             <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Email" ng-model="loginCtrl.data.userName">
+              <input type="text" class="form-control input-lg" placeholder="Email" ng-model="username">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control input-lg" placeholder="Password" ng-model="loginCtrl.data.password">
+              <input type="password" class="form-control input-lg" placeholder="Password" ng-model="password">
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block">Sign In</button>
@@ -46,8 +46,8 @@
           </form>
       </div>
        <div class="modal-footer">
-       {{loginCtrl.status}}
       </div>
+      {{error}}
       </div>
   </div>
   </div>
