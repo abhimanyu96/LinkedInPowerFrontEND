@@ -19,29 +19,32 @@ angular.module('Authentication')
             $http.post('http://localhost:8080', { userName: username, password: password }).then(
                function successCallback(response){ 
                 console.log("Success");
+                var token=response.data.token;
+                console.log(token);
                var flag=1;
-               callback(flag);},function errorCallback(response){var flag=0;callback(flag);} );
+               callback(flag,token);},function errorCallback(response){var flag=0;
+                var token = "";callback(flag,token);} );
 
         };
  
-        service.SetCredentials = function (username, password) {
-            var authdata = Base64.encode(username + ':' + password);
+        service.SetCredentials = function (username, token) {
+
  
             $rootScope.globals = {
                 currentUser: {
                     username: username,
-                    authdata: authdata
+                    token: token
                 }
             };
  
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+         //   $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
             $cookieStore.put('globals', $rootScope.globals);
         };
  
         service.ClearCredentials = function () {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic ';
+           // $http.defaults.headers.common.Authorization = 'Basic ';
         };
  
         return service;

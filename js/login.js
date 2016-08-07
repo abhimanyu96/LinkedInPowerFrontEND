@@ -9,9 +9,9 @@ app.controller('LoginController',
  
         $scope.login = function () {
             $scope.dataLoading = true;
-            AuthenticationService.Login($scope.username, $scope.password, function(flag) {
+            AuthenticationService.Login($scope.username, $scope.password, function(flag,token) {
                 if(flag==1) {
-                    AuthenticationService.SetCredentials($scope.username, $scope.password);
+                    AuthenticationService.SetCredentials($scope.username, token);
                     console.log('ss');
                     $location.path('/');
                 } else {
