@@ -91,7 +91,7 @@
 
         <div id="page-wrapper">
 
-            <div class="container-fluid">
+            <div class="container-fluid" ng-controller="dashController as dctrl">
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -102,6 +102,10 @@
                         <ol class="breadcrumb">
                             <li class="active">
                                 <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                            <li ng-hide="dctrl.data">Loading</li>
+                            <li ng-repeat="e in dctrl.data" ng-show="dctrl.data">
+                                {{e.userId}}
                             </li>
                         </ol>
                     </div>

@@ -30,21 +30,22 @@ angular.module('Authentication')
         service.SetCredentials = function (username, token) {
 
  
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    token: token
-                }
-            };
- 
-         //   $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            $rootScope.globals.token= token;
+            $http.defaults.headers.common['Authorization'] = token; // jshint ignore:line
             $cookieStore.put('globals', $rootScope.globals);
         };
  
         service.ClearCredentials = function () {
+            if($rootScope.globals.token!=null)
+            $http.get('http://localhost:8080/logout').then(function successCallback(response){
+                console.log("Logout Success");
+            },function errorCallback(response)
+            {
+                console.log("err");
+            });
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-           // $http.defaults.headers.common.Authorization = 'Basic ';
+            $http.defaults.headers.common.Authorization = '';
         };
  
         return service;
